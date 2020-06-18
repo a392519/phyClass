@@ -34,4 +34,7 @@ public class PlayController {
     public void test2(){
         System.out.println(".....ffff");
     }
+    public void test3(){
+        System.out.println(".....ffff");
+    }
 }
