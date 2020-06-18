@@ -31,7 +31,8 @@
 	export default {
 		data() {
 		return {
-				PageCur: 'pmain'
+				PageCur: 'pmain',
+				
 			}
 		},
 		methods: {
