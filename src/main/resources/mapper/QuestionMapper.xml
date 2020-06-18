@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.QuestionMapper">
+  <resultMap id="BaseResultMap" type="com.demo.model.Question">
+    <constructor>
+      <idArg column="qid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="qGrade" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="qBook" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="qCapter" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="qSection" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="qDescription" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="qCollectionName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="answer" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="resolve" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="A" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="B" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="C" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="D" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="doCount" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="wrongCount" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="storeUp" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    qid, qGrade, qBook, qCapter, qSection, qDescription, qCollectionName, answer, resolve, 
+    A, B, C, D, doCount, wrongCount, storeUp
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from question
+    where qid = #{qid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from question
+    where qid = #{qid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.model.Question">
+    insert into question (qid, qGrade, qBook, 
+      qCapter, qSection, qDescription, 
+      qCollectionName, answer, resolve, 
+      A, B, C, D, 
+      doCount, wrongCount, storeUp
+      )
+    values (#{qid,jdbcType=INTEGER}, #{qgrade,jdbcType=VARCHAR}, #{qbook,jdbcType=VARCHAR}, 
+      #{qcapter,jdbcType=VARCHAR}, #{qsection,jdbcType=VARCHAR}, #{qdescription,jdbcType=VARCHAR}, 
+      #{qcollectionname,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{resolve,jdbcType=VARCHAR}, 
+      #{a,jdbcType=VARCHAR}, #{b,jdbcType=VARCHAR}, #{c,jdbcType=VARCHAR}, #{d,jdbcType=VARCHAR}, 
+      #{docount,jdbcType=INTEGER}, #{wrongcount,jdbcType=INTEGER}, #{storeup,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.model.Question">
+    insert into question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="qid != null">
+        qid,
+      </if>
+      <if test="qgrade != null">
+        qGrade,
+      </if>
+      <if test="qbook != null">
+        qBook,
+      </if>
+      <if test="qcapter != null">
+        qCapter,
+      </if>
+      <if test="qsection != null">
+        qSection,
+      </if>
+      <if test="qdescription != null">
+        qDescription,
+      </if>
+      <if test="qcollectionname != null">
+        qCollectionName,
+      </if>
+      <if test="answer != null">
+        answer,
+      </if>
+      <if test="resolve != null">
+        resolve,
+      </if>
+      <if test="a != null">
+        A,
+      </if>
+      <if test="b != null">
+        B,
+      </if>
+      <if test="c != null">
+        C,
+      </if>
+      <if test="d != null">
+        D,
+      </if>
+      <if test="docount != null">
+        doCount,
+      </if>
+      <if test="wrongcount != null">
+        wrongCount,
+      </if>
+      <if test="storeup != null">
+        storeUp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="qid != null">
+        #{qid,jdbcType=INTEGER},
+      </if>
+      <if test="qgrade != null">
+        #{qgrade,jdbcType=VARCHAR},
+      </if>
+      <if test="qbook != null">
+        #{qbook,jdbcType=VARCHAR},
+      </if>
+      <if test="qcapter != null">
+        #{qcapter,jdbcType=VARCHAR},
+      </if>
+      <if test="qsection != null">
+        #{qsection,jdbcType=VARCHAR},
+      </if>
+      <if test="qdescription != null">
+        #{qdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="qcollectionname != null">
+        #{qcollectionname,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="resolve != null">
+        #{resolve,jdbcType=VARCHAR},
+      </if>
+      <if test="a != null">
+        #{a,jdbcType=VARCHAR},
+      </if>
+      <if test="b != null">
+        #{b,jdbcType=VARCHAR},
+      </if>
+      <if test="c != null">
+        #{c,jdbcType=VARCHAR},
+      </if>
+      <if test="d != null">
+        #{d,jdbcType=VARCHAR},
+      </if>
+      <if test="docount != null">
+        #{docount,jdbcType=INTEGER},
+      </if>
+      <if test="wrongcount != null">
+        #{wrongcount,jdbcType=INTEGER},
+      </if>
+      <if test="storeup != null">
+        #{storeup,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.model.Question">
+    update question
+    <set>
+      <if test="qgrade != null">
+        qGrade = #{qgrade,jdbcType=VARCHAR},
+      </if>
+      <if test="qbook != null">
+        qBook = #{qbook,jdbcType=VARCHAR},
+      </if>
+      <if test="qcapter != null">
+        qCapter = #{qcapter,jdbcType=VARCHAR},
+      </if>
+      <if test="qsection != null">
+        qSection = #{qsection,jdbcType=VARCHAR},
+      </if>
+      <if test="qdescription != null">
+        qDescription = #{qdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="qcollectionname != null">
+        qCollectionName = #{qcollectionname,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="resolve != null">
+        resolve = #{resolve,jdbcType=VARCHAR},
+      </if>
+      <if test="a != null">
+        A = #{a,jdbcType=VARCHAR},
+      </if>
+      <if test="b != null">
+        B = #{b,jdbcType=VARCHAR},
+      </if>
+      <if test="c != null">
+        C = #{c,jdbcType=VARCHAR},
+      </if>
+      <if test="d != null">
+        D = #{d,jdbcType=VARCHAR},
+      </if>
+      <if test="docount != null">
+        doCount = #{docount,jdbcType=INTEGER},
+      </if>
+      <if test="wrongcount != null">
+        wrongCount = #{wrongcount,jdbcType=INTEGER},
+      </if>
+      <if test="storeup != null">
+        storeUp = #{storeup,jdbcType=INTEGER},
+      </if>
+    </set>
+    where qid = #{qid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.model.Question">
+    update question
+    set qGrade = #{qgrade,jdbcType=VARCHAR},
+      qBook = #{qbook,jdbcType=VARCHAR},
+      qCapter = #{qcapter,jdbcType=VARCHAR},
+      qSection = #{qsection,jdbcType=VARCHAR},
+      qDescription = #{qdescription,jdbcType=VARCHAR},
+      qCollectionName = #{qcollectionname,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      resolve = #{resolve,jdbcType=VARCHAR},
+      A = #{a,jdbcType=VARCHAR},
+      B = #{b,jdbcType=VARCHAR},
+      C = #{c,jdbcType=VARCHAR},
+      D = #{d,jdbcType=VARCHAR},
+      doCount = #{docount,jdbcType=INTEGER},
+      wrongCount = #{wrongcount,jdbcType=INTEGER},
+      storeUp = #{storeup,jdbcType=INTEGER}
+    where qid = #{qid,jdbcType=INTEGER}
+  </update>
+</mapper>
