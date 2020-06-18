@@ -1,0 +1,22 @@
+{
+  "name": "phyClass",
+  "version": "1.0.0",
+  "description": "<p style=\"text-align: center;\"><img src=\"https://image.weilanwl.com/uni/UniAppReadme.jpg\" alt=\"ColorUI简介\"></img></p>",
+  "main": "main.js",
+  "dependencies": {
+    "prettier": "^1.12.1",
+    "vue-video-player": "^5.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "globalStyle": {
+          "usingComponents": {
+              "ly-tree-node": "/pages/common/ly-tree/ly-tree-node"
+          }
+      }
+}
