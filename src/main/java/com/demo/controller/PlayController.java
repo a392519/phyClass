@@ -28,13 +28,5 @@ public class PlayController {
         return new Gson().toJson(list);
 
     }
-    public void test(){
-        System.out.println("...................");
-    }
-    public void test2(){
-        System.out.println(".....ffff");
-    }
-    public void test3(){
-        System.out.println(".....ffff");
-    }
+
 }
