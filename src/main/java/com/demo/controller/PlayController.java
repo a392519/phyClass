@@ -28,5 +28,7 @@ public class PlayController {
         return new Gson().toJson(list);
 
     }
+    public void aaa(){
 
+    }
 }
