@@ -26,5 +26,12 @@ public class PlayController {
         videoClass.setVgrade(x);
         List list=playService.selectByGrade(videoClass);
         return new Gson().toJson(list);
+
+    }
+    public void test(){
+        System.out.println("...................");
+    }
+    public void test2(){
+        System.out.println(".....ffff");
     }
 }
