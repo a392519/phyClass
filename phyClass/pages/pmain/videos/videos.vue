@@ -30,7 +30,7 @@
 				isActive: false,
 				ready:false,
 				data: [],
-			
+				//。。。。。。。。。。。。。。。。。。。。。
 
 				PageCur: '',
 				// 视频播放
