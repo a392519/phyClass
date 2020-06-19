@@ -30,9 +30,6 @@
 				isActive: false,
 				ready:false,
 				data: [],
-				//。。。。。。。。。。。。。。。。。。。。。
-				//....................................ffff....
-				//0000000000000000000000000000000dd000ff0000000000dddddddddddd0
 				PageCur: '',
 				// 视频播放
 				playerOptions: {
@@ -47,7 +44,7 @@
 					sources: [{
 						type: "",
 						src: '../../../static/video/g.mp4' ,//url地址
-						/* ../../../static/video/m.mp4 */
+						
 					}],
 					poster: "", //你的封面地址
 					// width: document.documentElement.clientWidth,
