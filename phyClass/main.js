@@ -23,7 +23,7 @@ Vue.component('pmain',pmain)
 import title1 from './pages/common/title1/title1.vue'
 Vue.component('title1',title1)
 
-import question from './pages/question/home/home.vue'
+import question from './pages/question/home/answerPage.vue'
 Vue.component('question',question)
 
 import about from './pages/about/home/home.vue'

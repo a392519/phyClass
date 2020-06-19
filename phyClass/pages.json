@@ -110,7 +110,10 @@
             "path" : "pages/pmain/videos/videos",
             "style" : {}
         }
-        
+        ,{
+            "path" : "pages/question/home/answerPage",
+            "style" : {}
+        }
         
        
         ,{
