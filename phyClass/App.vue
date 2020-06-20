@@ -118,6 +118,7 @@
 <style>
 	@import "colorui/main.css";
 	@import "colorui/icon.css";
+	@import "./pages/common/iconfont.css";
 @import "pages/common/ly-tree/ly-tree.css");
 	.nav-list {
 		display: flex;

@@ -38,16 +38,56 @@
 						<view class="item__key__box">
 							答案：<input class="write_input" placeholder="请填写你的答案" v-model="newOptList[showQuestionIndex].question_key"/>
 						</view>
-						
-						
 					</block>
+					
+				</view>
+				<!-- 答案模块 -->
+				<view class="answer__option" >
+					<block v-if="isShowAnswer">
+						<view class="title__number">【答案】 {{newOptList[showQuestionIndex].answer}}</view>
+						<view class="title__number">【解析】 {{newOptList[showQuestionIndex].resolves}}</view>
+						<block v-for="(item,index) in newOptList[showQuestionIndex].answerImageList" :key="index">
+							<swiper-item>
+								<image :src="item" mode="aspectFill"></image>
+							</swiper-item>
+						</block>
+					</block>
+					
+					
 					
 				</view>
 			</view>
 		</block>
+		<view>
+			<view class="answer__next__btn_left" :style="nextStyle" @tap="nextQuestionBtnLeft">
+				{{isStart ? '提  交' : '上 一 题'}}
+			</view>
+			<view class="answer__next__btn_middle" :style="nextStyle" @click="showAnswer">
+				{{isShowAnswer ? '隐藏答案' : '显示答案'}}
+			</view>
+		</view>
 		<view class="answer__next__btn" :style="nextStyle" @tap="nextQuestionBtn">
 			{{isEnd ? '提  交' : '下 一 题'}}
 		</view>
+		
+		<view class="fixed collectQues">
+			<view class="layout1 layout" @click="layout1" >
+				<view v-if="lay_type1" class="icon iconfont icon-jiarushijian" ></view>
+				<view v-else class="icon iconfont icon-jiaruyunzhuji" ></view>
+			</view>
+			<view class="layout2 layout" @click="layout2" >
+				<view v-if="lay_type2" class="icon iconfont icon-shoucang1" ></view>
+				<view v-else class="icon iconfont icon-shoucang" ></view>
+			</view>
+			<view class="layout3 layout" @click="layout3">
+				<view  class="icon iconfont icon-chakan1" ></view>
+			</view>
+			<view class="layout4 layout" @click="layout4">
+				<view  class="icon iconfont icon-zhuanfa" ></view>
+			</view>
+			
+		</view>
+			
 	</view>
 
 </template>
@@ -70,6 +110,11 @@
 								{id:2,name:'B',content:'二次',active:0},
 								{id:3,name:'C',content:'三次',active:0},
 								{id:4,name:'D',content:'四次',active:0},
+							],
+							answer:'C',
+							resolves:'这是解析3',
+							answerImageList: [
+								'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1588056060&di=67dc5595a44e90101f524bae2273cc0a&src=http://a3.att.hudong.com/14/75/01300000164186121366756803686.jpg'
 							]
 						}
 					]
@@ -96,6 +141,10 @@
 				newOptList:[],//初始化数据
 				showQuestionIndex: 0, //当前展示题号
 				isEnd: false, //是否为最后一题
+				isStart:true,
+				isShowAnswer:false,
+				lay_type1:false,
+				lay_type2:false,
 			};
 		},
 		watch: {
@@ -116,6 +165,9 @@
 			this.newOptList = this.questionList
 		},
 		methods: {
+			showAnswer(){//点击取反
+				this.isShowAnswer=!this.isShowAnswer;
+			},
 			checkOption(e) { //选择事件
 				let checkOpt = this.questionList[this.showQuestionIndex]
 				this.checkActive(e.currentTarget.dataset.id)
@@ -148,6 +200,36 @@
 				
 				this.questionList = newOpt
 			},
+			nextQuestionBtnLeft(e){//上一题
+				if (!this.checkTest()) {
+					return wx.showToast({
+						title: '请先作答',
+						icon: 'none'
+					})
+				}
+				
+				//构建返回数据
+				let opt = {
+					current_id: this.showQuestionIndex,
+					isStart: this.isStart
+				}
+				
+				if (!this.isStart) {
+					let newList = this.questionList
+					this.isShowAnswer=false;
+					if (this.showQuestionIndex >0) {
+						this.showQuestionIndex = this.showQuestionIndex - 1
+						this.isEnd = false
+						if (this.showQuestionIndex != 0) {
+							this.isStart = false
+						}else this.isStart= true
+					}
+				} else {
+					return this.formatKey(opt)
+				}
+				
+				this.$emit("nextAnswer",opt);
+			},
 			nextQuestionBtn(e) { //下一题
 				if (!this.checkTest()) {
 					return wx.showToast({
@@ -164,7 +246,9 @@
 
 				if (!this.isEnd) {
 					let newList = this.questionList
+					this.isShowAnswer=false;
 					if (this.showQuestionIndex < newList.length - 1) {
+						this.isStart=false;
 						this.showQuestionIndex = this.showQuestionIndex + 1
 						if (this.showQuestionIndex == newList.length - 1) {
 							this.isEnd = true
@@ -196,6 +280,15 @@
 				}
 				return check_res
 				
+			},
+			layout1(){
+				this.lay_type1=!this.lay_type1;
+			},
+			layout2(){
+				this.lay_type2=!this.lay_type2;
+			},
+			layout3(){
+				console.log("评论。。。。。。。。。")
 			},
 			formatKey(opt) { //答案整理返回
 				let newAnswer = []
@@ -246,6 +339,7 @@
 </script>
 
 <style lang="scss" scoped>
+	@import "../iconfont.css";
 	page {
 		background-color: #FFFFFF;
 	}
@@ -316,9 +410,9 @@
 
 	.answer__next__btn {
 		position: fixed;
-		left: 0;
+		right: 2%;
 		bottom: 0;
-		width: 100%;
+		width: 30%;
 		height: 90upx;
 		line-height: 90upx;
 		color: #ffffff;
@@ -326,12 +420,55 @@
 		text-align: center;
 		background: #C9784F;
 	}
-
+.answer__next__btn_left {
+		position: fixed;
+		left: 2%;
+		bottom: 0;
+		width: 30%;
+		height: 90upx;
+		line-height: 90upx;
+		color: #ffffff;
+		font-size: 30upx;
+		text-align: center;
+		background: #C9784F;
+	}
+	.answer__next__btn_middle {
+			position: fixed;
+			left: 35%;
+			bottom: 0;
+			width: 30%;
+			height: 90upx;
+			line-height: 90upx;
+			color: #ffffff;
+			font-size: 30upx;
+			text-align: center;
+			background: #C9784F;
+		}
 	.question__option__active {
 		color: #FFFFFF !important;
 		background-color: #C9784F !important;
 	}
-	
+	.answer__option{
+		margin-top: 30px;
+	}
+	.collectQues{
+		position: fixed;
+		
+		bottom: 150rpx;
+		right: 0px;
+		width: 60px;
+		height: 350px;
+		
+	}
+	.texts{
+		width: 80rpx;
+		height: 80rpx;
+		background: #F0F0F0;
+	}
+	.layout{
+		margin-top: 30px;
+		text-align: center;
+	}
 	.item__key__box {
 		display: flex;
 		width: 100%;
